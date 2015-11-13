@@ -20,7 +20,6 @@ chain.initialState = state1
 state1.connectToState(state1, new markov.Weight(0, function (fromState, toState, previousStates) {
     if (previousStates.length > 0 &&
         previousStates[0] === state1) {
-        console.log("previous state was already state1, so no way!")
         return 0
     }
 
@@ -33,7 +32,6 @@ state2.connectToState(state2, new markov.Weight(0, function (fromState, toState,
     if (previousStates.length > 1 &&
         previousStates[0] === state2 &&
         previousStates[1] === state2) {
-        console.log("previous state was already state2, so no way!")
         return 0
     }
 

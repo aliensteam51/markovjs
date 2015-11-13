@@ -1,6 +1,8 @@
 
 var markov = (function() {
+
     var _markov = {
+
         Chain : function () {
             this.states = []
             this.initialState = null
@@ -8,26 +10,32 @@ var markov = (function() {
             // memory of previous states, states are added to the front of the array
             // and popped from the back
             this._memory = []
-            this._memoryLength = 2
+            this.memorySize = 2
         },
+
         Weight : function (value, updateProc) {
             this._value = typeof value !== 'undefined' ? value : 0;
             this._updateProc = typeof updateProc !== 'undefined' ? updateProc : null
         },
+
         State : function () {
             this._connections = []
         },
+
         _Connection : function (state, weight) {
             this._state = state
             this._weight = weight
         }
     }
 
+
+    // Weight object prototype
     _markov.Weight.prototype.updateValue = function (fromState, toState, previousStates) {
         if (this._updateProc) {
             this._value = this._updateProc.call(this, fromState, toState, previousStates)
         }
     }
+
 
     // State object prototype
     _markov.State.prototype.connectToState = function (state, weight) {
@@ -64,6 +72,8 @@ var markov = (function() {
 
         for (i = 0; i < numConnections; i++) {
             connection = connections[i]
+
+            // Set low and high weight of this state
             lowWeight = highWeight
             highWeight += connection._weight._value
 
@@ -87,7 +97,7 @@ var markov = (function() {
         // insert state at front of array
         this._memory.unshift(state)
 
-        if (this._memory.length > this._memoryLength) {
+        if (this._memory.length > this.memorySize) {
             // pop from back of array
             this._memory.pop()
         }
@@ -103,7 +113,9 @@ var markov = (function() {
         return currentState
     }
 
+
     return _markov
+
 })()
 
 
