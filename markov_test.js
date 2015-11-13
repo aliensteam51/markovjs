@@ -17,7 +17,7 @@ chain.states.push(state2)
 chain.states.push(state3)
 chain.initialState = state1
 
-state1.connectToState(state1, new markov.Weight(0, function (fromState, toState, previousStates) {
+state1.addTransitionToState(state1, new markov.Weight(0, function (fromState, toState, previousStates) {
     if (previousStates.length > 0 &&
         previousStates[0] === state1) {
         return 0
@@ -25,10 +25,10 @@ state1.connectToState(state1, new markov.Weight(0, function (fromState, toState,
 
     return 20
 }))
-state1.connectToState(state2, new markov.Weight(60))
-state1.connectToState(state3, new markov.Weight(20))
+state1.addTransitionToState(state2, new markov.Weight(60))
+state1.addTransitionToState(state3, new markov.Weight(20))
 
-state2.connectToState(state2, new markov.Weight(0, function (fromState, toState, previousStates) {
+state2.addTransitionToState(state2, new markov.Weight(0, function (fromState, toState, previousStates) {
     if (previousStates.length > 1 &&
         previousStates[0] === state2 &&
         previousStates[1] === state2) {
@@ -37,9 +37,9 @@ state2.connectToState(state2, new markov.Weight(0, function (fromState, toState,
 
     return 50
 }))
-state2.connectToState(state3, new markov.Weight(50))
+state2.addTransitionToState(state3, new markov.Weight(50))
 
-state3.connectToState(state1, new markov.Weight(100))
+state3.addTransitionToState(state1, new markov.Weight(100))
 
 chain.initialize()
 

@@ -28,7 +28,7 @@ Now create a new chain
 	
 Then we have to connect the states. Each connection is given a weight, which can be just a static value or we can pass a function to calculate a weight dynamically. So in this example state1 has a weight of 20 if the previous state was not state1, otherwise the weight to go from state1 to state1 is 0
 	
-	state1.connectToState(state1, new markov.Weight(0, function (fromState, toState, previousStates) {
+	state1.addTransitionToState(state1, new markov.Weight(0, function (fromState, toState, previousStates) {
 	    if (previousStates.length > 0 &&
 	        previousStates[0] === state1) {
 	        return 0
@@ -36,10 +36,10 @@ Then we have to connect the states. Each connection is given a weight, which can
 	
 	    return 20
 	}))
-	state1.connectToState(state2, new markov.Weight(60))
-	state1.connectToState(state3, new markov.Weight(20))
+	state1.addTransitionToState(state2, new markov.Weight(60))
+	state1.addTransitionToState(state3, new markov.Weight(20))
 	
-	state2.connectToState(state2, new markov.Weight(0, function (fromState, toState, previousStates) {
+	state2.addTransitionToState(state2, new markov.Weight(0, function (fromState, toState, previousStates) {
 	    if (previousStates.length > 1 &&
 	        previousStates[0] === state2 &&
 	        previousStates[1] === state2) {
@@ -48,9 +48,9 @@ Then we have to connect the states. Each connection is given a weight, which can
 	
 	    return 50
 	}))
-	state2.connectToState(state3, new markov.Weight(50))
+	state2.addTransitionToState(state3, new markov.Weight(50))
 	
-	state3.connectToState(state1, new markov.Weight(100))
+	state3.addTransitionToState(state1, new markov.Weight(100))
 	
 Initialize the chain and log the output
 	
@@ -62,4 +62,4 @@ Initialize the chain and log the output
 	    console.log("value", state.value)
 	}
   
-The default chain state memory contains the last 2 states. You can change the memory size by setting the 'memorySize' property of the chain object
+The default chain state memory contains the last 2 states. You can change the memory size by setting the 'maxPreviousStates' property of the chain object
