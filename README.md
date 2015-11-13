@@ -26,7 +26,7 @@ Now create a new chain
 	chain.states.push(state3)
 	chain.initialState = state1
 	
-Then we have to connect the states. Each connection is given a weight, which can be just a static value or we can pass a function to calculate a weight dynamically. So in this example state1 has a weight of 20 if the previous state was not state1, otherwise the weight to go from state1 to state1 is 0
+Then we have to add transitions between states. Each transition is given a weight, which can be just a static value or we can pass a function to calculate a weight dynamically. So in this example state1 has a weight of 20 if the previous state was not state1, otherwise the weight to go from state1 to state1 is 0
 	
 	state1.addTransitionToState(state1, new markov.Weight(0, function (fromState, toState, previousStates) {
 	    if (previousStates.length > 0 &&
