@@ -3,13 +3,17 @@ var markov = (function() {
 
     var _markov = {
 
-        Chain : function () {
+        Chain : function (args) {
+            var states = args.states
+            var initialState = args.initialState
+            var maxPreviousStates = args.maxPreviousStates
+
             // States
-            this.states = []
-            this.initialState = null
-            this._currentState
+            this.states = Array.isArray(states)? states : []
+            this.initialState = (typeof initialState !== 'undefined')? initialState : null
+            this._currentState = this.initialState
             this._previousStates = []
-            this.maxPreviousStates = 2
+            this.maxPreviousStates = (typeof maxPreviousStates === 'number')? maxPreviousStates : 2
         },
 
         Weight : function (weight) {

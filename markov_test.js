@@ -7,13 +7,14 @@ var TestState = function (value) {
 
 TestState.prototype = Object.create(markov.State.prototype)
 
-var chain = new markov.Chain()
 var state1 = new TestState(10)
 var state2 = new TestState(20)
 var state3 = new TestState(30)
-
-chain.states = [state1, state2, state3]
-chain.initialState = state1
+var chain = new markov.Chain({
+    states : [state1, state2, state3],
+    initialState : state1,
+    maxPreviousStates : 2
+})
 
 state1.addTransitionToState(state1, new markov.Weight(function (fromState, toState, previousStates) {
     if (previousStates.length > 0 &&
@@ -39,7 +40,7 @@ state2.addTransitionToState(state3, new markov.Weight(50))
 
 state3.addTransitionToState(state1, new markov.Weight(100))
 
-chain.initialize()
+console.log('typeof', typeof state1)
 
 for (var i = 0; i < 100; i++) {
     var state = chain.nextState()

@@ -16,13 +16,14 @@ We create a test State subclass, with a single property 'value'
 	
 Now create a new chain
 	
-	var chain = new markov.Chain()
 	var state1 = new TestState(10)
 	var state2 = new TestState(20)
 	var state3 = new TestState(30)
-	
-	chain.states = [state1, state2, state3]
-	chain.initialState = state1
+	var chain = new markov.Chain({
+   	 	states : [state1, state2, state3],
+    	initialState : state1,
+    	maxPreviousStates : 2
+	})
 	
 Then we have to add transitions between states. Each transition is given a weight, which we give a static value or pass a function to calculate the weight dynamically. So in this example state1 has a weight of 20 if the previous state was not state1, otherwise the weight to go from state1 to state1 is 0
 	
@@ -50,9 +51,7 @@ Then we have to add transitions between states. Each transition is given a weigh
 	
 	state3.addTransitionToState(state1, new markov.Weight(100))
 	
-Initialize the chain and log the output
-	
-	chain.initialize()
+Run the chain and log the output
 	
 	for (var i = 0; i < 100; i++) {
 	    var state = chain.nextState()
