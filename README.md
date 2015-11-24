@@ -21,9 +21,7 @@ Now create a new chain
 	var state2 = new TestState(20)
 	var state3 = new TestState(30)
 	
-	chain.states.push(state1)
-	chain.states.push(state2)
-	chain.states.push(state3)
+	chain.states = [state1, state2, state3]
 	chain.initialState = state1
 	
 Then we have to add transitions between states. Each transition is given a weight, which we give a static value or pass a function to calculate the weight dynamically. So in this example state1 has a weight of 20 if the previous state was not state1, otherwise the weight to go from state1 to state1 is 0

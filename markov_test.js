@@ -12,9 +12,7 @@ var state1 = new TestState(10)
 var state2 = new TestState(20)
 var state3 = new TestState(30)
 
-chain.states.push(state1)
-chain.states.push(state2)
-chain.states.push(state3)
+chain.states = [state1, state2, state3]
 chain.initialState = state1
 
 state1.addTransitionToState(state1, new markov.Weight(function (fromState, toState, previousStates) {
