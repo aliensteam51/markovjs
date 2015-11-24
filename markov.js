@@ -8,16 +8,19 @@ var markov = (function() {
             this.states = []
             this.initialState = null
             this._currentState
-
-            // Memory of previous states, states are added to the front of the array
-            // and popped from the back
             this._previousStates = []
             this.maxPreviousStates = 2
         },
 
-        Weight : function (value, updateProc) {
-            this._value = typeof value !== 'undefined' ? value : 0;
-            this._updateProc = typeof updateProc !== 'undefined' ? updateProc : null
+        Weight : function (weight) {
+            this._value = 0
+            this._updateProc = null
+
+            if (typeof weight === 'number') {
+                this._value = weight
+            } else if (typeof weight === 'function') {
+                this._updateProc = weight
+            }
         },
 
         State : function () {
